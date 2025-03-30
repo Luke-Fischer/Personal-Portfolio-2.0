@@ -17,12 +17,32 @@ export default function Contact() {
         </p>
         <a
           href="mailto:lukefischer.dev@gmail.com"
-          className="inline-block border border-teal-400 text-teal-400 px-6 py-2 rounded hover:bg-teal-400 hover:text-black transition text-sm font-medium"
+          className="inline-block border border-teal-400 text-teal-400 px-6 py-2 rounded hover:bg-teal-400 hover:text-black transition text-sm font-medium mb-4"
         >
           Say Hello
         </a>
+
+        {/* Resume Buttons */}
+        <div className="mt-6 flex justify-center gap-4 flex-wrap">
+          <a
+            href="/Luke_Fischer_Resume.pdf"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="border border-teal-400 text-teal-400 px-4 py-2 rounded hover:bg-teal-400 hover:text-black transition text-sm font-medium"
+          >
+            View Resume
+          </a>
+          <a
+            href="/Luke_Fischer_Resume.pdf"
+            download
+            className="border border-gray-600 text-gray-300 px-4 py-2 rounded hover:bg-gray-600 hover:text-white transition text-sm font-medium"
+          >
+            Download PDF
+          </a>
+        </div>
       </motion.div>
     </section>
   );
 }
+
 
