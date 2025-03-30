@@ -81,23 +81,58 @@ export default function DevModeTerminal({ isOpen, onClose }) {
 
     switch (input) {
         case "help":
-            output = `Available Commands:
-            help               Show this list
-            about              Learn more about me
-            projects           Show my major projects
-            certs              View my certifications
-            education          See my academic background
-            debruijn           View my research paper on De Bruijn sequences
-            fanquarters -d     Open FanQuarters demo video
-            fanquarters -w     Open FanQuarters live site
-            stc                Open STC Pick’ems live site
-            resume             View my resume
-            github             Open my GitHub profile
-            linkedin           Open my LinkedIn profile
-            email              Send me an email
-            clear              Clear the terminal
-            exit               Close the terminal`;
+            const isMobile = window.innerWidth < 768;
+          
+            output = isMobile
+              ? `Available Commands:
+          help
+            Show this list
+          about
+            Learn more about me
+          projects
+            Show my major projects
+          certs
+            View my certifications
+          education
+            See my academic background
+          debruijn
+            View my research paper on DB seq.
+          fanquarters -d
+            Open FanQuarters demo video
+          fanquarters -w
+            Open FanQuarters live site
+          stc
+            Open STC Pick’ems live site
+          resume
+            View my resume
+          github
+            Open my GitHub profile
+          linkedin
+            Open my LinkedIn profile
+          email
+            Send me an email
+          clear
+            Clear the terminal
+          exit
+            Close the terminal`
+              : `Available Commands:
+          help               Show this list
+          about              Learn more about me
+          projects           Show my major projects
+          certs              View my certifications
+          education          See my academic background
+          debruijn           View my research paper on De Bruijn sequences
+          fanquarters -d     Open FanQuarters demo video
+          fanquarters -w     Open FanQuarters live site
+          stc                Open STC Pick’ems live site
+          resume             View my resume
+          github             Open my GitHub profile
+          linkedin           Open my LinkedIn profile
+          email              Send me an email
+          clear              Clear the terminal
+          exit               Close the terminal`;
             break;
+          
           
         case "debruijn":
             output = "Opening De Bruijn Sequence research paper...";
@@ -262,42 +297,54 @@ Always happy to chat!`;
   if (!isOpen) return null;
 
   return (
-    <div className="fixed inset-0 bg-black bg-opacity-50 backdrop-blur-sm z-50 flex items-center justify-center">
-      <div className="bg-[#0d0d0d] text-green-400 font-mono w-full max-w-2xl h-[70vh] rounded-lg border border-teal-500 p-4 flex flex-col shadow-2xl">
-        <div className="flex justify-between items-center mb-3 text-teal-400">
-          <h2 className="text-sm">{terminalHeader}</h2>
-          <button onClick={onClose} className="text-lg text-gray-500 hover:text-white">×</button>
+    <div className="fixed inset-0 bg-black bg-opacity-50 backdrop-blur-sm z-50 flex items-center justify-center px-2">
+      <div className="bg-[#0d0d0d] text-green-400 font-mono w-full max-w-2xl h-[70vh] md:h-[70vh] rounded-lg border border-teal-500 p-3 md:p-4 flex flex-col shadow-2xl text-xs md:text-sm">
+        {/* Header */}
+        <div className="flex justify-between items-center mb-2 md:mb-3 text-teal-400 text-[11px] md:text-sm">
+          <h2>{terminalHeader}</h2>
+          <button
+            onClick={onClose}
+            className="text-gray-500 hover:text-white text-base md:text-lg"
+          >
+            ×
+          </button>
         </div>
-
-        <div ref={terminalRef} className="flex-1 overflow-y-auto p-3 border border-gray-700 rounded bg-black text-sm custom-scroll">
-        {history.map((line, idx) => {
+  
+        {/* Terminal Output */}
+        <div
+          ref={terminalRef}
+          className="flex-1 overflow-y-auto p-2 md:p-3 border border-gray-700 rounded bg-black custom-scroll"
+        >
+          {history.map((line, idx) => {
             const isCommand = line.startsWith("> ");
             return (
-                <div
+              <div
                 key={idx}
-                className={`whitespace-pre-wrap leading-relaxed ${
-                    isCommand ? "text-white font-semibold" : "text-green-400"
+                className={`whitespace-pre-wrap leading-relaxed break-words ${
+                  isCommand ? "text-white font-semibold" : "text-green-400"
                 }`}
-                >
+              >
                 {line}
-                </div>
+              </div>
             );
-        })}
-            <form onSubmit={handleSubmit} className="flex items-center gap-2 mt-1">
-            <span className="text-teal-400 text-sm">❯</span>
+          })}
+  
+          {/* Input */}
+          <form onSubmit={handleSubmit} className="flex items-center gap-1 mt-2">
+            <span className="text-teal-400 text-xs md:text-sm">❯</span>
             <input
-                ref={inputRef}
-                type="text"
-                value={command}
-                onChange={(e) => setCommand(e.target.value)}
-                onKeyDown={handleKeyDown}
-                className="flex-1 bg-transparent border-none outline-none text-white text-sm"
-                autoComplete="off"
-                placeholder={hasTyped ? "" : "Type a command..."}
-                />
-            </form>
+              ref={inputRef}
+              type="text"
+              value={command}
+              onChange={(e) => setCommand(e.target.value)}
+              onKeyDown={handleKeyDown}
+              className="flex-1 bg-transparent border-none outline-none text-white text-xs md:text-sm"
+              autoComplete="off"
+              placeholder={hasTyped ? "" : "Type a command..."}
+            />
+          </form>
         </div>
       </div>
     </div>
-  );
+  );  
 }

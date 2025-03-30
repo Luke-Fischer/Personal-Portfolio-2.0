@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Github, Linkedin, Mail, FileText, Bot, Menu, X } from "lucide-react";
+import { Code2 } from "lucide-react";
 
 export default function Navbar({ onBotClick, onDevModeClick }) {
   const [activeSection, setActiveSection] = useState("");
@@ -97,7 +98,7 @@ export default function Navbar({ onBotClick, onDevModeClick }) {
           rel="noopener noreferrer"
           className="text-gray-300 hover:text-teal-400 transition flex items-center gap-1"
         >
-          <FileText size={16} />
+          <FileText size={16} className="text-teal-400"/>
           Resume
         </a>
   
@@ -105,15 +106,18 @@ export default function Navbar({ onBotClick, onDevModeClick }) {
           onClick={onBotClick}
           className="text-gray-300 hover:text-teal-400 transition flex items-center gap-1 focus:outline-none"
         >
-          <Bot size={16} />
+          <Bot size={16} className="text-teal-400"/>
           LukeBot
         </button>
   
         <button
-          onClick={onDevModeClick}
-          className="text-gray-300 hover:text-teal-400 transition flex items-center gap-1 focus:outline-none"
+          onClick={() => {
+            onDevModeClick();
+            setMobileOpen(false);
+          }}
+          className="text-gray-300 hover:text-teal-400 transition flex items-center gap-1"
         >
-          <span className="text-xs bg-teal-400 text-black px-2 py-1 rounded font-mono">dev</span>
+          <Code2 size={16} className="text-teal-400" />
           Dev Mode
         </button>
       </div>
@@ -153,7 +157,7 @@ export default function Navbar({ onBotClick, onDevModeClick }) {
           rel="noopener noreferrer"
           className="text-gray-300 hover:text-teal-400 transition flex items-center gap-1"
         >
-          <FileText size={16} />
+          <FileText size={16} className="text-teal-400"/>
           Resume
         </a>
   
@@ -164,7 +168,7 @@ export default function Navbar({ onBotClick, onDevModeClick }) {
           }}
           className="text-gray-300 hover:text-teal-400 transition flex items-center gap-1"
         >
-          <Bot size={16} />
+          <Bot size={16} className="text-teal-400"/>
           LukeBot
         </button>
   
@@ -175,9 +179,9 @@ export default function Navbar({ onBotClick, onDevModeClick }) {
           }}
           className="text-gray-300 hover:text-teal-400 transition flex items-center gap-1"
         >
-          <span className="text-xs bg-teal-400 text-black px-2 py-1 rounded font-mono">dev</span>
+          <Code2 size={16} className="text-teal-400" />
           Dev Mode
-        </button>
+      </button>
       </div>
     </nav>
   );  
