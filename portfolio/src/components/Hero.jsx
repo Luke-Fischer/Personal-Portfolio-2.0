@@ -20,7 +20,7 @@ export default function Hero() {
         onClick={() => setBotOpen(true)}
         className="bg-teal-500 hover:bg-teal-400 text-black px-4 py-2 rounded font-semibold"
       >
-        Open Personal Bot
+        Chat with LukeBot
       </button>
 
       {/* Modal */}
