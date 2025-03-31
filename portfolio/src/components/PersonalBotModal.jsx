@@ -149,7 +149,7 @@ export default function PersonalBotModal({ isOpen, onClose }) {
                 }`}
               >
                 <p>{msg.text}</p>
-                <span className="absolute bottom-[-1.2rem] right-0 text-[10px] text-gray-400">
+                <span className="absolute bottom-[-1.2rem] right-0 text-[10px] text-gray-400 whitespace-nowrap">
                   {msg.time}
                 </span>
               </div>

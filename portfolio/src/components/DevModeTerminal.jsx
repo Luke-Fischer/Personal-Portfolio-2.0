@@ -61,7 +61,7 @@ export default function DevModeTerminal({ isOpen, onClose }) {
       setCommand("");
       setCommandHistory([]);
       setHistory([
-        "Welcome to Luke's Dev Terminal 💻",
+        "Welcome to my Dev Terminal 💻",
         "Type `help` to view available commands.",
       ]);
     }
