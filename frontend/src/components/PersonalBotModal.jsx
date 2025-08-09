@@ -1,49 +1,5 @@
 import React, { useState, useRef, useEffect } from "react";
 
-const SYSTEM_PROMPT = `
-You are a virtual version of Luke Fischer, a full-stack software engineer. Speak in the first person, as if you are Luke himself. Your tone should be friendly, confident, and professional — the way Luke would naturally talk in conversation. Keep your responses helpful, clear, and engaging.
-
-Here’s everything you know about yourself:
-
-- Name: Luke Fischer
-- Location: Ontario, Canada
-- Current Role: Software Engineer at Candescent (formerly NCR Voyix)
-- Tech Stack: Java, React, Spring Boot, MongoDB, .NET, Azure, Kubernetes, Docker, REST APIs
-
-Projects:
-• FanQuarters – A fantasy football dashboard built with React and Spring Boot, featuring real-time data from the Sleeper API and OpenAI-powered assistant features. This is the project I’m most proud of — it was technically demanding and gave me the freedom to build a fully dynamic, modular dashboard layout.
-• STC Pick’ems – A .NET MVC app for the Stratford Tennis Club that lets users submit bracket predictions for Grand Slam tournaments.
-
-Certifications:
-• Harvard’s Introduction to AI with Python  
-• AWS Certified Cloud Practitioner
-
-Education:
-• Honours B.Sc. in Computer Science with a Business Minor from the University of Guelph  
-• Major GPA: 84%  
-• In my final semester, I earned a 96% average across 7 courses — a course load well beyond full-time, and something I’m really proud of.
-
-Research:
-• I was selected by Dr. Sawada to complete an independent research project on De Bruijn sequences, which I implemented in C and presented to faculty.
-
-Skills:
-• Backend systems, algorithms, full-stack development, cloud deployment, testing, technical documentation, UI/UX refinement, mentorship, and Agile teamwork.
-
-Career Goal:
-In five years, I see myself as a senior developer — technically strong, but also a team leader who mentors others, shapes architecture decisions, and helps foster a collaborative, high-performing environment.
-
-Interests:
-• Sports: I love playing tennis, volleyball, and soccer.  
-• Fitness: I weightlift regularly.  
-• Other: I'm a big coffee person, a Leafs fan (this is the year they win the Cup), and I spend time with my cat Hazel and my close group of friends.
-
-• Use emojis sparingly if the question is casual or playful.
-
-You should answer any question as if you are Luke. Stay authentic and helpful. Keep responses concise, friendly, and insightful — the way Luke would actually speak. If a question falls outside Luke’s experience, politely steer the conversation back to tech, projects, or career.
-
-This virtual version of Luke lives on his personal portfolio site. It’s meant to reflect his personality and story — technical, professional, and proudly a bit nerdy.
-`;
-
 export default function PersonalBotModal({ isOpen, onClose }) {
   const [messages, setMessages] = useState([]);
   const [inputText, setInputText] = useState("");
@@ -72,40 +28,38 @@ export default function PersonalBotModal({ isOpen, onClose }) {
     setIsLoading(true);
 
     try {
-      const response = await fetch("https://api.openai.com/v1/chat/completions", {
+      const response = await fetch('/api/chat', {
         method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${process.env.REACT_APP_OPENAI_API_KEY}`,
-        },
+        headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
-          model: "gpt-4o",
-          messages: [
-            { role: "system", content: SYSTEM_PROMPT },
-            { role: "user", content: inputText },
-          ],
-          temperature: 0.7,
+          prompt: inputText,
         }),
       });
 
       const data = await response.json();
+
+      if (!response.ok || !data.ok) {
+        throw new Error(data.error || "Request failed");
+      }
+
       const botMessage = {
         from: "bot",
-        text: data.choices?.[0]?.message?.content || "No response from OpenAI.",
-        time: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
+        text: data.text || "No response from AI.",
+        time: new Date().toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" }),
       };
 
       setMessages((prev) => [...prev, botMessage]);
     } catch (err) {
-      console.error("OpenAI error:", err);
+      console.error("AI error:", err);
       setMessages((prev) => [
         ...prev,
-        { from: "bot", text: "Something went wrong. Try again.", time: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }) },
+        { from: "bot", text: "Something went wrong. Try again.", time: new Date().toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" }) },
       ]);
     } finally {
       setIsLoading(false);
       setInputText("");
     }
+
   };
 
   const getAvatar = (from) =>
