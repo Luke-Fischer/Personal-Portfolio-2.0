@@ -1,4 +1,17 @@
+function isOriginAllowed(origin) {
+  const allowedOrigins = [
+    'http://localhost:3000',
+    'https://lukefischer.ca',
+    'https://www.lukefischer.ca'
+  ];
+  return allowedOrigins.includes(origin);
+}
+
 module.exports = async function handler(req, res) {
+  if (!isOriginAllowed(req.headers.origin)) {
+    return res.status(403).json({ ok: false, error: 'Forbidden' });
+  }
+  
   if (req.method === 'OPTIONS') return res.status(204).end();
   if (req.method !== 'POST') {
     return res.status(405).json({ ok: false, error: 'Method not allowed' });
