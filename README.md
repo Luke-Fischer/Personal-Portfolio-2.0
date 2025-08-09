@@ -1,6 +1,6 @@
 # Personal Portfolio 2.0
 
-This is my personal developer portfolio — a showcase of my work, skills, and personality — built with a React frontend and Vercel serverless API routes for secure backend features.
+This is my personal developer portfolio, showcasing my work, skills, and personality. It is built with a React frontend and Vercel serverless API routes for secure backend features.
 
 ## Features
 
@@ -11,7 +11,7 @@ This is my personal developer portfolio — a showcase of my work, skills, and p
 ### AI-Powered Chat
 - Integrated OpenAI GPT backend
 - API key is kept secure via Vercel serverless functions
-- Users can interact with an AI assistant directly within the portfolio
+- Users can interact with my AI assistant directly within the portfolio
 
 ### Dev Mode (Terminal Navigation)
 - A built-command style navigation system called Dev Mode
