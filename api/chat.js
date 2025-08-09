@@ -23,7 +23,7 @@ module.exports = async function handler(req, res) {
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({
-        model: 'gpt-4o',            // or 'gpt-4o-mini' to save $
+        model: 'gpt-4o',
         temperature: 0.7,
         max_tokens: 500,
         messages: [
